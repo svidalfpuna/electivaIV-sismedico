@@ -1,8 +1,8 @@
 module.exports = {
-  HOST: "database-svl.cbc88csik6kl.us-east-2.rds.amazonaws.com",
+  HOST: "prueba.postreges",
   USER: "postgres",
-  PASSWORD: "ASD.12,.",
-  DB: "electivaIV",
+  PASSWORD: "ASDasdfasdf,.",
+  DB: "postgres",
   dialect: "postgres",
   pool: {
     max: 5,
