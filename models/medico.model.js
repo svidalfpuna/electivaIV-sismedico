@@ -13,7 +13,7 @@ module.exports = (sequelize, Sequelize) => {
                 isIn: [['Pediatra', 'Dermatologo', 'Clinico']],
             },
         },
-        usuario: {
+        username: {
             type: Sequelize.STRING,
             unique: true,
         },

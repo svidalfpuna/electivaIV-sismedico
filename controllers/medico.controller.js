@@ -23,6 +23,29 @@ exports.obtenerMedicos = async (req, res) => {
     }
 };
 
+exports.login = async (req, res) => {
+    const { username, password } = req.body;
+    try {
+        const user = await Medico.findOne({
+            where: {
+                username: username,
+            },
+        });
+
+        if (!user) {
+            return res.status(404).json({ message: 'Usuario no encontrado' });
+        }
+
+        if (user.password === password) {
+            return res.status(200).json({ message: 'Login exitoso', user: user });
+        } else {
+            return res.status(401).json({ message: 'Contraseña incorrecta' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message || 'Error al obtener médicos.' });
+    }
+};
+
 exports.crearMedico = async (req, res) => {
     try {
         const { nombre, apellido, cedula, email, telefono, fechaNacimiento, especialidad, usuario, password } = req.body;

@@ -12,10 +12,10 @@ const [registerError, setRegisterError] = useState('');
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:8000/api/register/', {
+      const res = await fetch('http://localhost:5000/api/paciente/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ nombre, apellido, cedula, email, telefono, fechaNacimiento, especialidad }),
       });
       const data = await res.json();
       if (res.ok) {

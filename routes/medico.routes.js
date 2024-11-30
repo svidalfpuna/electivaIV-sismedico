@@ -10,5 +10,7 @@ module.exports = app => {
 
     router.delete('/:id', medicos.borrarMedico);
 
+    router.post('/login', medicos.login);
+
     app.use('/api/medicos', router);
 }
