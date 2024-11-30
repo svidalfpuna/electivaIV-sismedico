@@ -65,7 +65,8 @@
 
 h1 {
     font-weight: bold;
-    margin: 0;
+    margin: 0px;
+    margin-top: auto;
 }
 
 p {
@@ -134,6 +135,18 @@ a {
     gap: 5px; 
 }
 
+
+input[type="date"] {
+    color: rgba(0, 0, 0, 0.473);
+    font-family: "Poppins", sans-serif;
+    background: #ffffffa2;
+    border: none;
+    padding: 12px 15px;
+    margin: 8px 0;
+    width: 100%;
+}
+
+
 .form-container-login.sign-in-container-login h1 {
     color: #2873ea;
 }
@@ -151,15 +164,29 @@ a {
     padding: 12px 15px;
     margin: 8px 0;
     width: 100%;
+    border-radius: 10PX;
 }
 
 .form-container-register input {
     background:  #ffffffa2;
     border: none;
-    padding: 12px 15px;
+    padding: 1px 15px;
+    margin: 8px 0;
+    width: 100%;
+    border-radius: 10PX;
+}
+
+select {
+    font-family: "Poppins", sans-serif;
+    background: #ffffffa2;
+    border: none;
+    color: rgba(0, 0, 0, 0.473);
+    padding: 1px 15px;
+    border-radius: 10PX;
     margin: 8px 0;
     width: 100%;
 }
+
 .recuperar-container input {
     background:  #347bc822;
     border: none;
@@ -185,6 +212,8 @@ button {
     border: 1px solid rgba(255, 255, 255, 0.95);
     background: rgba(238, 238, 238, 0.95);
     color: rgb(119, 164, 233);
+    margin-bottom: 10px;
+    
 }
 
 
@@ -357,3 +386,8 @@ span.L6cTce {
   .button{
     background-color:  rgb(119, 164, 233);
   }
+
+  .form-container-register h1 {
+    margin-bottom: 4px; /* Aumenta el margen inferior para separar más del fondo */
+    }
+

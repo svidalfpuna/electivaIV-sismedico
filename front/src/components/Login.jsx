@@ -5,8 +5,15 @@ export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
-  const [registerError, setRegisterError] = useState('');
-
+// Estados para registro
+const [nombre, setNombre] = useState('');
+const [apellido, setApellido] = useState('');
+const [cedula, setCedula] = useState('');
+const [email, setEmail] = useState('');
+const [telefono, setTelefono] = useState('');
+const [fechaNacimiento, setFechaNacimiento] = useState('');
+const [especialidad, setEspecialidad] = useState('');
+const [registerError, setRegisterError] = useState('');
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
@@ -77,25 +84,85 @@ export default function Login() {
         </div>
 
         {/* Formulario de Registro */}
-        <div className="form-container-login register">
+        <div className="form-container-register">
           <form className="form" onSubmit={handleSignUp}>
             <h1>Crear Cuenta</h1>
             <input
-              type="text"
-              className="input-field"
-              placeholder="Usuario"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-            <input
-              type="password"
-              className="input-field"
-              placeholder="Contraseña"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+                        type="text"
+                        className="input-field"
+                        placeholder="Nombre"
+                        value={nombre}
+                        onChange={(e) => setNombre(e.target.value)}
+                        required
+                      />
+                      <input
+                        type="text"
+                        className="input-field"
+                        placeholder="Apellido"
+                        value={apellido}
+                        onChange={(e) => setApellido(e.target.value)}
+                        required
+                      />
+                      <input
+                        type="text"
+                        className="input-field"
+                        placeholder="Cédula"
+                        value={cedula}
+                        onChange={(e) => setCedula(e.target.value)}
+                        required
+                      />
+                      <input
+                        type="email"
+                        className="input-field"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                      />
+                      <input
+                        type="tel"
+                        className="input-field"
+                        placeholder="Teléfono"
+                        value={telefono}
+                        onChange={(e) => setTelefono(e.target.value)}
+                        required
+                      />
+                      <input
+                        type="date"
+                        className="input-field"
+                        placeholder="Fecha de Nacimiento"
+                        value={fechaNacimiento}
+                        onChange={(e) => setFechaNacimiento(e.target.value)}
+                        required
+                      />
+                      <select
+                        className="input-field"
+                        value={especialidad}
+                        onChange={(e) => setEspecialidad(e.target.value)}
+                        required
+                      >
+                        <option value="">Selecciona Especialidad</option>
+                        <option value="Pediatra">Pediatra</option>
+                        <option value="Dermatologo">Dermatólogo</option>
+                        <option value="Clinico">Clínico</option>
+                        {/* Agrega más opciones si es necesario */}
+                      </select>
+                      <input
+                        type="text"
+                        className="input-field"
+                        placeholder="Nombre de Usuario"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        required
+                      />
+                      <input
+                        type="password"
+                        className="input-field"
+                        placeholder="Contraseña"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                      />
             {registerError && <p className="error-message">{registerError}</p>}
             <button type="submit" className="button registrar-button">Registrarse</button>
           </form>
