@@ -146,6 +146,15 @@ input[type="date"] {
     width: 100%;
 }
 
+textarea{
+    color: rgba(0, 0, 0, 0.473);
+    font-family: "Poppins", sans-serif;
+    background: #ffffffa2;
+    border: none;
+    padding: 12px 15px;
+    margin: 8px 0;
+    width: 100%;
+}
 
 .form-container-login.sign-in-container-login h1 {
     color: #2873ea;
