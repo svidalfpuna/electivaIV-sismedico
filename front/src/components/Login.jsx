@@ -86,7 +86,7 @@ const [registerError, setRegisterError] = useState('');
         {/* Formulario de Registro */}
         <div className="form-container-register">
           <form className="form" onSubmit={handleSignUp}>
-            <h1>Crear Cuenta</h1>
+            <h1>Registrar Médico</h1>
             <input
                         type="text"
                         className="input-field"

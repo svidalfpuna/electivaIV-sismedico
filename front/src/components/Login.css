@@ -213,7 +213,7 @@ button {
     background: rgba(238, 238, 238, 0.95);
     color: rgb(119, 164, 233);
     margin-bottom: 10px;
-    
+
 }
 
 
@@ -388,6 +388,7 @@ span.L6cTce {
   }
 
   .form-container-register h1 {
-    margin-bottom: 4px; /* Aumenta el margen inferior para separar más del fondo */
-    }
+    margin-top: 10px; /* Aumenta el margen inferior para separar más del fondo */
+    font-size: 32px;
+}
 
