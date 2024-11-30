@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import './Login.css';
-import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [registerError, setRegisterError] = useState('');
   const [loginError, setLoginError] = useState('');
-  const navigate = useNavigate();
+  const [registerError, setRegisterError] = useState('');
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -20,7 +18,6 @@ export default function Login() {
       const data = await res.json();
       if (res.ok) {
         console.log('Usuario registrado con éxito');
-        alert('Registro exitoso. Ahora inicia sesión.');
       } else {
         setRegisterError(data.error || 'Usuario existente');
       }
@@ -41,7 +38,8 @@ export default function Login() {
       if (res.ok) {
         console.log('Inicio de sesión exitoso');
         localStorage.setItem('token', data.token);
-        navigate('/workspace');
+        localStorage.setItem('user', JSON.stringify(data.user));
+        // Navegación al dashboard
       } else {
         setLoginError(data.error || 'Error al iniciar sesión');
       }
@@ -49,13 +47,14 @@ export default function Login() {
       setLoginError('Error en la solicitud de inicio de sesión');
     }
   };
-<div>alo</div>
+
   return (
-    <div className="login-base">
-      <div className="form-wrapper">
-        <div className="form-container">
-          <h1>Iniciar Sesión</h1>
-          <form onSubmit={handleSignIn}>
+    <div className='login-base'>
+      <div className='container-login'>
+        {/* Formulario de Iniciar Sesión */}
+        <div className="form-container-login">
+          <form className="form" onSubmit={handleSignIn}>
+            <h1>Iniciar Sesión</h1>
             <input
               type="text"
               className="input-field"
@@ -77,9 +76,10 @@ export default function Login() {
           </form>
         </div>
 
-        <div className="form-container">
-          <h1>Crea tu Cuenta</h1>
-          <form onSubmit={handleSignUp}>
+        {/* Formulario de Registro */}
+        <div className="form-container-login register">
+          <form className="form" onSubmit={handleSignUp}>
+            <h1>Crear Cuenta</h1>
             <input
               type="text"
               className="input-field"
@@ -97,7 +97,7 @@ export default function Login() {
               required
             />
             {registerError && <p className="error-message">{registerError}</p>}
-            <button type="submit" className="button">Registrarse</button>
+            <button type="submit" className="button registrar-button">Registrarse</button>
           </form>
         </div>
       </div>

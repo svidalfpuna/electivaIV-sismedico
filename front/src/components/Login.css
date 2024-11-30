@@ -29,8 +29,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: -20px 0 50px;
     background-color: #f0f0f0;
 }
 
@@ -96,18 +94,33 @@ a {
 
 
 .container-login {
+    display: flex;
+    justify-content: space-between; /* Alinea los formularios uno al lado del otro */
+    width: 768px;
+    max-width: 100%;
+    min-height: 480px;
     background: #fff;
     border-radius: 10px;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0, 10px 10px rgba(0, 0, 0, 0.22);
     position: relative;
     overflow: hidden;
-    width: 768px;
-    max-width: 100%;
-    min-height: 480px;
-}
+    padding: 20px;
+  }
 
 .form-container-login form {
     background: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 0 50px;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 5px; 
+}
+
+.form-container-register form {
+    background: rgba(119, 165, 233, 0.705);
     display: flex;
     flex-direction: column;
     padding: 0 50px;
@@ -137,6 +150,13 @@ a {
     width: 100%;
 }
 
+.form-container-register input {
+    background:  #ffffffa2;
+    border: none;
+    padding: 12px 15px;
+    margin: 8px 0;
+    width: 100%;
+}
 .recuperar-container input {
     background:  #347bc822;
     border: none;
@@ -159,8 +179,9 @@ button {
 }
 
 .button.registrar-button {
-    border: 1px solid rgba(6, 52, 125, 0.95);
-    background: rgba(6, 52, 125, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.95);
+    background: rgba(238, 238, 238, 0.95);
+    color: rgb(119, 164, 233);
 }
 
 
@@ -187,11 +208,21 @@ button.ghost {
 }
 
 .container-login .form-container-login {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    transition: all 0.6s ease-in-out;
+  width: 48%; /* Ajusta el tamaño para que los formularios se alineen adecuadamente */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
+
+.container-login .form-container-register{
+    background: rgb(119, 165, 233);
+    width: 48%; /* Ajusta el tamaño para que los formularios se alineen adecuadamente */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 
 .container-login .sign-in-container-login {
     left: 0;
@@ -319,3 +350,7 @@ span.L6cTce {
     display: none;
   }
   
+
+  .button{
+    background-color:  rgb(119, 164, 233);
+  }
