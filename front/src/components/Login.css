@@ -15,7 +15,8 @@
     align-items: center;
     justify-content: center;
     width: 500px; /* Tamaño específico */
-    margin: 0 auto; /* Centrar horizontalmente */
+    margin: 0 auto; /* Centrado horizontal */
+    max-width: 90%; /* Asegura que no se desborde en pantallas pequeñas */
 }
 
 .recuperar-container h4{
@@ -27,10 +28,12 @@
     font-family: "Poppins", sans-serif;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: center;  /* Centrado vertical */
+    align-items: flex-start;  /* Alineado a la izquierda */
     background-color: #f0f0f0;
+    padding-left: 250px;  /* Mueve el contenido hacia la derecha */
 }
+
 
 .top-left-button {
     position: absolute;
