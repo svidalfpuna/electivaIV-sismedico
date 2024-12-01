@@ -48,8 +48,7 @@ export default function RegisterFicha() {
   };
 
   return (
-    <div className='login-base'>
-      <div className="form-container-register">
+      <div className="form-container-register-paciente">
         <form className="form" onSubmit={handleSubmit}>
           <h1>Registrar Ficha Clínica</h1>
           
@@ -106,9 +105,8 @@ export default function RegisterFicha() {
 
           {registerError && <p className="error-message">{registerError}</p>}
 
-          <button type="submit" className="button registrar-button">Guardar</button>
+          <button type="submit" className="button registrar">Guardar</button>
         </form>
       </div>
-    </div>
   );
 }

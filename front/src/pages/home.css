@@ -1,0 +1,72 @@
+/* Contenedor principal */
+@import url("https://fonts.googleapis.com/css2?family=Poppin347bc822s:ital,wght@1,300&display=swap");
+
+html, body, #root {
+    margin: 0;
+    padding: 0;
+    height: 100%; /* Asegura que la altura de la página ocupe todo el espacio de la ventana */
+  }
+  
+  .home-container {
+    display: flex;
+    height: 100vh; /* Asegura que el contenedor ocupe el 100% de la altura de la ventana */
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    font-family: "Poppins", sans-serif;
+    width: 35%;
+    background-color: rgb(119, 165, 233);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  
+  /* Botones del sidebar */
+.sidebar-btn {
+    background: none;
+    border: none;
+    color: white;
+    text-align: left;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    cursor: pointer;
+    padding: 10px; /* Agregamos un poco de padding para mejorar la usabilidad */
+    border-radius: 5px; /* Bordes redondeados para un diseño más agradable */
+    transition: background-color 0.3s ease; /* Transición suave */
+    font-family: "Poppins", sans-serif;
+
+  }
+  
+  .sidebar-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Fondo claro al hacer hover */
+    color: #f5f5f5; /* Cambia ligeramente el color del texto */
+  }
+
+  
+  /* Contenido principal */
+  .main-content {
+    flex: 1;
+    padding: 35px;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+
+    
+  }
+  
+  .main-content h1 {
+    margin-bottom: 20px;
+    font-family: "Poppins", sans-serif;
+
+  }
+  
+  .main-content p {
+    font-size: 16px;
+    color: #333;
+    font-family: "Poppins", sans-serif;
+
+  }
+  
