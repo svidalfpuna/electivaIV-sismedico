@@ -4,6 +4,8 @@ import './Login.css';
 export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [usernameRegister, setUsernameRegister] = useState('');
+  const [passwordRegister, setPasswordRegister] = useState('');
   const [loginError, setLoginError] = useState('');
   // Estados para registro
   const [nombre, setNombre] = useState('');
@@ -17,9 +19,8 @@ export default function Login() {
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:5000/api/medico/', {
+      const res = await fetch('/api/medicos/', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nombre, apellido, cedula, email, telefono, fechaNacimiento, especialidad, username, password }),
       });
       const data = await res.json();
@@ -151,16 +152,16 @@ export default function Login() {
               type="text"
               className="input-field"
               placeholder="Nombre de Usuario"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={usernameRegister}
+              onChange={(e) => setUsernameRegister(e.target.value)}
               required
             />
             <input
               type="password"
               className="input-field"
               placeholder="Contraseña"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={passwordRegister}
+              onChange={(e) => setPasswordRegister(e.target.value)}
               required
             />
             {registerError && <p className="error-message">{registerError}</p>}

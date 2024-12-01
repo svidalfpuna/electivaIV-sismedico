@@ -4,7 +4,7 @@ import PacienteRegister from './components/PacienteRegister.jsx';
 import RegisterFicha from './components/fichaClinica.jsx';
 
 function App() {
-  return <RegisterFicha></RegisterFicha>;
+  return <Login></Login>;
 }
 
 export default App;
