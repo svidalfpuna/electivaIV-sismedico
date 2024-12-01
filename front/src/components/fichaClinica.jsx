@@ -14,7 +14,7 @@ export default function RegisterFicha() {
     // Se autocompleta con la fecha del día
     setFecha(new Date().toISOString().split('T')[0]);
     
-    // Simulación de obtener pacientes (esto debería venir de una API real)
+    // Simulación de obtener pacientes (esto debería venir de la API)
     setPacientes([
       { id: 1, nombre: 'Juan Pérez' },
       { id: 2, nombre: 'Ana Gómez' },

@@ -47,7 +47,6 @@ export default function Login() {
         console.log('Inicio de sesión exitoso');
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(data.user));
-        // Navegación al dashboard
       } else {
         setLoginError(data.error || 'Error al iniciar sesión');
       }
@@ -146,7 +145,6 @@ export default function Login() {
               <option value="Pediatra">Pediatra</option>
               <option value="Dermatologo">Dermatólogo</option>
               <option value="Clinico">Clínico</option>
-              {/* Agrega más opciones si es necesario */}
             </select>
             <input
               type="text"
