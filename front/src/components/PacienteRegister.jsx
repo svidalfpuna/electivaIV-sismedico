@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'; 
 import './Login.css';
 
 export default function PacienteRegister() {
@@ -36,6 +36,7 @@ export default function PacienteRegister() {
     <div className="form-container-register-paciente">
       <form className="form" onSubmit={handleSignUp}>
         <h1>Registro de Paciente</h1>
+        
         <input
           type="text"
           className="input-field"
@@ -76,14 +77,18 @@ export default function PacienteRegister() {
           onChange={(e) => setTelefono(e.target.value)}
           required
         />
+        
+        {/* Fecha de nacimiento */}
+        <label htmlFor="fechaNacimiento" className="label-date">Fecha de Nacimiento :</label>
         <input
           type="date"
+          id="fechaNacimiento"
           className="input-field"
-          placeholder="Fecha de Nacimiento"
           value={fechaNacimiento}
           onChange={(e) => setFechaNacimiento(e.target.value)}
           required
         />
+
         {registerError && <p className="error-message">{registerError}</p>}
         <button type="submit" className="button registrar">Guardar</button>
       </form>

@@ -188,6 +188,9 @@ textarea {
     color: rgba(0, 0, 0, 0.473);
 }
 
+.label-date{
+    color: rgba(0, 0, 0, 0.473);
+}
 select {
     font-family: "Poppins", sans-serif;
     background: rgb(196 220 255);
@@ -371,4 +374,10 @@ button.ghost {
         left: 0;
         width: 100%;
     }
+}
+
+.form-container-register-paciente h1 {
+    text-align: center;
+    font-size: 32px; /* Ajusta el tamaño según lo necesites */
+
 }
