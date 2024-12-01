@@ -19,25 +19,30 @@ export default function Login() {
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('/api/medicos/', {
+      const body = JSON.stringify({ nombre, apellido, cedula, email, telefono, fechaNacimiento, especialidad, username: usernameRegister, password: passwordRegister });
+      console.log("Llamada a api para registrar medico: ",body);
+      const res = await fetch('http://localhost:5000/api/medicos', {
         method: 'POST',
-        body: JSON.stringify({ nombre, apellido, cedula, email, telefono, fechaNacimiento, especialidad, username, password }),
+        headers: { 'Content-Type': 'application/json' },
+        body: body,
       });
       const data = await res.json();
       if (res.ok) {
         console.log('Usuario registrado con éxito');
       } else {
+        console.log(data.error || 'Se tuvo error al llamar a la api');
         setRegisterError(data.error || 'Usuario existente');
       }
     } catch (error) {
       setRegisterError('Error en la solicitud de registro');
+      console.log('Se tuvo error al llamar a la api');
     }
   };
 
   const handleSignIn = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:5000/api/login/', {
+      const res = await fetch('http://localhost:5000/api/medicos/login/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
