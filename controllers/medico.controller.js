@@ -48,9 +48,9 @@ exports.login = async (req, res) => {
 
 exports.crearMedico = async (req, res) => {
     try {
-        const { nombre, apellido, cedula, email, telefono, fechaNacimiento, especialidad, usuario, password } = req.body;
+        const { nombre, apellido, cedula, email, telefono, fechaNacimiento, especialidad, username, password } = req.body;
         const persona = await Persona.create({ nombre, apellido, cedula, email, telefono, fechaNacimiento });
-        const medico = await Medico.create({ especialidad, usuario, password });
+        const medico = await Medico.create({ especialidad, username, password });
         res.status(201).json({
             id: medico.id,
             ...persona.dataValues,

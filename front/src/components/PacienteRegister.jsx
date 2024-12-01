@@ -12,19 +12,22 @@ const [registerError, setRegisterError] = useState('');
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:5000/api/paciente/', {
+      console.log('llamada a api para crear spacientes');
+      const res = await fetch('http://localhost:5000/api/pacientes/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nombre, apellido, cedula, email, telefono, fechaNacimiento, especialidad }),
+        body: JSON.stringify({ nombre, apellido, cedula, email, telefono, fechaNacimiento }),
       });
       const data = await res.json();
       if (res.ok) {
         console.log('Usuario registrado con éxito');
       } else {
         setRegisterError(data.error || 'Usuario existente');
+        console.log(data.error || 'Usuario existente');
       }
     } catch (error) {
       setRegisterError('Error en la solicitud de registro');
+      console.log('Error en la solicitud de registro');
     }
   };
 
