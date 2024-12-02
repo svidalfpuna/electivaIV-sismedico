@@ -61,19 +61,44 @@ exports.login = async (req, res) => {
 
 exports.crearMedico = async (req, res) => {
     try {
-        const { nombre, apellido, cedula, email, telefono, fechaNacimiento, especialidadId, username, password } = req.body;
+        const { nombre, apellido, cedula, email, telefono, fechaNacimiento, especialidadId, username, password } = req.body; const where = {};
+
+        const conditions = [];
+
+        if (cedula) conditions.push({ cedula: cedula });
+        if (email) conditions.push({ email: email });
+
+        if (conditions.length > 0) {
+            where[Op.or] = conditions;
+        }
+
+        let persona = await Persona.findOne({
+            where
+        });
         const user = await Medico.findOne({
             where: {
                 username: username,
             },
         });
         if (user) {
-            return res.status(409).json({ message: 'username ya existente' });
+            return res.status(409).json({ error: 'username ya existente' });
         };
-        const persona = await Persona.create({
-            nombre, apellido, cedula, email, telefono, fechaNacimiento
+        if (!persona)
+            persona = await Persona.create({
+                nombre, apellido, cedula, email, telefono, fechaNacimiento
+            });
+
+        let medico = await Medico.findOne({
+            where: {
+                personaId: persona.id,
+            },
         });
-        const medico = await Medico.create({
+
+        if (medico) {
+            return res.status(409).json({ error: 'medico ya existe' });
+        }
+
+        medico = await Medico.create({
             personaId: persona.id, especialidadId, username, password
         });
 

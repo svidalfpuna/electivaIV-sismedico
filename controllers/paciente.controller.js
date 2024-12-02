@@ -38,22 +38,37 @@ exports.crearPaciente = async (req, res) => {
             where[Op.or] = conditions;
         }
 
-        const pacient = await Persona.findOne({
+        let persona = await Persona.findOne({
             where
         });
 
-        if (pacient) {
-            if (pacient.cedula) {
-                return res.status(409).json({ message: 'cedula ya existente' });
-            } else {
-                return res.status(409).json({ message: 'email ya existente' });
+        if (persona) {
+            if (persona.cedula === cedula & persona.email !== email) {
+                return res.status(409).json({ error: 'cedula ya existente' });
+            } else if (persona.cedula !== cedula & persona.email === email) {
+                return res.status(409).json({ error: 'email ya existente' });
             }
+            const pacienteRep = await Paciente.findOne({
+                where: {
+                    personaId: persona.id
+                }
+            });
+            if (pacienteRep)
+                return res.status(409).json({ error: 'usuario ya existente' });
+        } else {
+            persona = await Persona.create({ nombre, apellido, cedula, email, telefono, fechaNacimiento });
         }
 
-        const persona = await Persona.create({ nombre, apellido, cedula, email, telefono, fechaNacimiento });
-        const paciente = await Paciente.create({ personaId: persona.id });
+        let paciente = await Paciente.findOne({
+            where: {
+                personaId: persona.id
+            }
+        });
 
-        console.log(paciente)
+        if (!paciente) {
+            paciente = await Paciente.create({ personaId: persona.id });
+        }
+
         res.status(201).json({
             id: paciente.dataValues.id,
             ...persona.dataValues,
