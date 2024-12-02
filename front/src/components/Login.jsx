@@ -173,7 +173,7 @@ export default function Login() {
             <select
               className="input-field"
               value={especialidadId}
-              onChange={(e) => setEspecialidadId(e.target.value)}
+              onChange={(e) => setEspecialidadId(e.target.key)}
               required
             >
               {especialidades.map((especialidadItem) => (
