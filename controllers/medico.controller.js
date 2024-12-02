@@ -1,6 +1,9 @@
+const jwt = require('jsonwebtoken');
 const db = require("../models");
 const Medico = db.medicos;
 const Persona = db.personas;
+
+const SECRET_KEY = 'CLAVE_TOKEN';
 
 exports.obtenerMedicos = async (req, res) => {
     try {
@@ -11,12 +14,12 @@ exports.obtenerMedicos = async (req, res) => {
                 attributes: ["id", "nombre", "apellido", "cedula", "email", "telefono", "fechaNacimiento"],
             },
         });
-        const medicos = medicosConPersona.map((medico) => (
-            {
+        const medicos = medicosConPersona
+            .filter((medico) => medico.persona)
+            .map((medico) => ({
                 id: medico.id,
-                ...medico.persona.dataValues
-            }
-        ));
+                ...medico.persona.dataValues,
+            }));
         res.json(medicos);
     } catch (error) {
         res.status(500).json({ error: error.message || 'Error al obtener médicos.' });
@@ -27,6 +30,11 @@ exports.login = async (req, res) => {
     const { username, password } = req.body;
     try {
         const user = await Medico.findOne({
+            include: {
+                model: Persona,
+                as: "persona",
+                attributes: ["nombre", "apellido", "cedula", "email", "telefono", "fechaNacimiento"],
+            },
             where: {
                 username: username,
             },
@@ -37,7 +45,12 @@ exports.login = async (req, res) => {
         }
 
         if (user.password === password) {
-            return res.status(200).json({ message: 'Login exitoso', user: user });
+            const payload = {
+                id: user.id,
+                nombre: user.persona.nombre + " " + user.persona.apellido,
+            };
+            const token = jwt.sign(payload, SECRET_KEY);
+            return res.status(200).json({ message: 'Login exitoso', token });
         } else {
             return res.status(401).json({ message: 'Contraseña incorrecta' });
         }
@@ -48,15 +61,30 @@ exports.login = async (req, res) => {
 
 exports.crearMedico = async (req, res) => {
     try {
-        const { nombre, apellido, cedula, email, telefono, fechaNacimiento, especialidad, username, password } = req.body;
-        const persona = await Persona.create({ nombre, apellido, cedula, email, telefono, fechaNacimiento });
-        const medico = await Medico.create({ especialidad, username, password });
-        res.status(201).json({
+        const { nombre, apellido, cedula, email, telefono, fechaNacimiento, especialidadId, username, password } = req.body;
+        const user = await Medico.findOne({
+            where: {
+                username: username,
+            },
+        });
+        if (user) {
+            return res.status(409).json({ message: 'username ya existente' });
+        };
+        const persona = await Persona.create({
+            nombre, apellido, cedula, email, telefono, fechaNacimiento
+        });
+        const medico = await Medico.create({
+            personaId: persona.id, especialidadId, username, password
+        });
+
+        const payload = {
             id: medico.id,
-            ...persona.dataValues,
-            especialidad: medico.especialidad,
-            usuario: medico.usuario,
-            password: medico.password,
+            nombre: persona.nombre + " " + persona.apellido,
+        };
+        const token = jwt.sign(payload, SECRET_KEY);
+
+        res.status(201).json({
+            token
         });
     } catch (error) {
         res.status(400).json({ error: error.message || 'Error al crear médico.' });
@@ -76,6 +104,7 @@ exports.actualizarMedico = async (req, res) => {
         const persona = await Persona.findByPk(medico.personaId);
 
         if (!persona) {
+            await medico.destroy();
             return res.status(404).json({ error: 'Médico no encontrado.' });
         }
 

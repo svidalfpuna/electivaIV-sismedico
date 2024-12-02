@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
+import { jwtDecode } from 'jwt-decode';
 import './Login.css';
 
 export default function RegisterFicha() {
   const [fecha, setFecha] = useState('');
-  const [paciente, setPaciente] = useState('');
-  const [motivoConsulta, setMotivoConsulta] = useState('');
+  const [pacienteId, setPacienteId] = useState('');
+  const [motivo, setMotivo] = useState('');
   const [diagnostico, setDiagnostico] = useState('');
   const [tratamiento, setTratamiento] = useState('');
   const [opciones, setOpciones] = useState([]);
   const [registerError, setRegisterError] = useState('');
+  const [decodedToken, setDecodedToken] = useState(null);
 
   const customStyles = {
     control: (base) => ({
@@ -28,10 +30,24 @@ export default function RegisterFicha() {
       color: '#6B788B',
     }),
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const decoded = jwtDecode(token); // decodificar el token
+        setDecodedToken(decoded);
+      } catch (error) {
+        console.error('Error al decodificar el token:', error);
+      }
+    }
+  }, []);
+
   useEffect(() => {
     // Se autocompleta con la fecha del día
     setFecha(new Date().toISOString().split('T')[0]);
 
+    console.log("se obtienen pacientes");
     fetch("http://localhost:5000/api/pacientes/")
       .then((res) => res.json())
       .then((data) => {
@@ -51,8 +67,9 @@ export default function RegisterFicha() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           fecha,
-          paciente,
-          motivoConsulta,
+          pacienteId,
+          medicoId: decodedToken.id,
+          motivo,
           diagnostico,
           tratamiento,
         }),
@@ -85,8 +102,8 @@ export default function RegisterFicha() {
         {/* Paciente */}
         <Select
           options={opciones}
-          value={opciones.find((option) => option.value === paciente)}
-          onChange={(selectedOption) => setPaciente(selectedOption?.value || '')}
+          value={opciones.find((option) => option.value === pacienteId)}
+          onChange={(selectedOption) => setPacienteId(selectedOption?.value || '')}
           placeholder="Selecciona un paciente"
           noOptionsMessage={() => 'No hay pacientes disponibles'}
           isSearchable
@@ -97,8 +114,8 @@ export default function RegisterFicha() {
         <textarea
           className="input-field"
           placeholder="Motivo de consulta"
-          value={motivoConsulta}
-          onChange={(e) => setMotivoConsulta(e.target.value)}
+          value={motivo}
+          onChange={(e) => setMotivo(e.target.value)}
           required
         ></textarea>
 

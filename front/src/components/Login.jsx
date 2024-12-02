@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Login.css';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
   const [username, setUsername] = useState('');
@@ -15,12 +16,13 @@ export default function Login() {
   const [telefono, setTelefono] = useState('');
   const [fechaNacimiento, setFechaNacimiento] = useState('');
   const [especialidades, setEspecialidades] = useState([]);
-  const [especialidad, setEspecialidad] = useState('');
+  const [especialidadId, setEspecialidadId] = useState('');
   const [registerError, setRegisterError] = useState('');
+  const navigate = useNavigate();
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      const body = JSON.stringify({ nombre, apellido, cedula, email, telefono, fechaNacimiento, especialidad, username: usernameRegister, password: passwordRegister });
+      const body = JSON.stringify({ nombre, apellido, cedula, email, telefono, fechaNacimiento, especialidadId, username: usernameRegister, password: passwordRegister });
       console.log("Llamada a api para registrar medico: ", body);
       const res = await fetch('http://localhost:5000/api/medicos', {
         method: 'POST',
@@ -30,6 +32,11 @@ export default function Login() {
       const data = await res.json();
       if (res.ok) {
         console.log('Usuario registrado con éxito');
+        console.log(data);
+        localStorage.setItem('token', JSON.stringify(data.token));
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       } else {
         console.log(data.error || 'Se tuvo error al llamar a la api');
         setRegisterError(data.error || 'Usuario existente');
@@ -51,8 +58,12 @@ export default function Login() {
       const data = await res.json();
       if (res.ok) {
         console.log('Inicio de sesión exitoso');
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('user', JSON.stringify(data.user));
+        console.log(data);
+        localStorage.setItem('token', JSON.stringify(data.token));
+        navigate('/home');
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       } else {
         setLoginError(data.error || 'Error al iniciar sesión');
       }
@@ -64,26 +75,21 @@ export default function Login() {
   useEffect(() => {
     // Obtener las especialidades desde la API
     const obtenerEspecialidades = async () => {
+      console.log("se hace call a api especialidades");
       try {
         const response = await fetch('http://localhost:5000/api/espacialidades');
         console.log(response);
         setEspecialidades(response);
+        const response = await fetch('http://localhost:5000/api/especialidades');
+        const data = await response.json();
+        console.log('Datos recibidos:', data);
+        setEspecialidades(data);
       } catch (error) {
         console.error('Error al obtener las especialidades', error);
       }
     };
 
     obtenerEspecialidades();
-
-    fetch("http://localhost:5000/api/pacientes/")
-      .then((res) => res.json())
-      .then((data) => {
-        const dataPaciente = data.map((paciente) => ({
-          label: paciente.nombre + " " + paciente.apellido,
-          value: paciente.id
-        }));
-        setOpciones(dataPaciente);
-      });
   }, []);
 
   return (
@@ -168,11 +174,10 @@ export default function Login() {
             />
             <select
               className="input-field"
-              value={especialidad}
-              onChange={(e) => setEspecialidad(e.target.value)}
+              value={especialidadId}
+              onChange={(e) => setEspecialidadId(e.target.value)}
               required
             >
-              <option value="">Selecciona Especialidad</option>
               {especialidades.map((especialidadItem) => (
                 <option key={especialidadItem.id} value={especialidadItem.nombre}>
                   {especialidadItem.nombre}
