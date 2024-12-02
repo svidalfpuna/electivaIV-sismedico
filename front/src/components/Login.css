@@ -182,7 +182,7 @@ textarea {
 .form-container-register-paciente input {
     background: rgb(196 220 255);
     border: none;
-    padding: 1px 15px;
+    padding: 4px 15px;
     margin: 8px 0;
     width: 100%;
     border-radius: 10px;
@@ -382,3 +382,75 @@ button.ghost {
     font-size: 32px; /* Ajusta el tamaño según lo necesites */
 
 }
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+  }
+  
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+  }
+  
+  .input-field {
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  ul li {
+    padding: 8px;
+    cursor: pointer;
+  }
+  
+  ul li:hover {
+    background-color: #f0f0f0;
+  }
+
+  .success-message {
+    color: green !important;
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: center;
+    font-weight: bold;
+
+  }

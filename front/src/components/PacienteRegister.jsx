@@ -9,11 +9,14 @@ export default function PacienteRegister() {
   const [telefono, setTelefono] = useState('');
   const [fechaNacimiento, setFechaNacimiento] = useState('');
   const [registerError, setRegisterError] = useState('');
+  const [registerSuccess, setRegisterSuccess] = useState(''); 
 
   const handleSignUp = async (e) => {
     e.preventDefault();
+    setRegisterError(''); // Limpiar mensajes previos
+    setRegisterSuccess('');
     try {
-      console.log('llamada a api para crear spacientes');
+      console.log('llamada a api para crear pacientes');
       const res = await fetch('http://localhost:5000/api/pacientes/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -21,7 +24,14 @@ export default function PacienteRegister() {
       });
       const data = await res.json();
       if (res.ok) {
+        setRegisterSuccess('Usuario registrado con éxito'); // Establecer mensaje de éxito
         console.log('Usuario registrado con éxito');
+        setNombre('');
+        setApellido('');
+        setCedula('');
+        setEmail('');
+        setTelefono('');
+        setFechaNacimiento('');
       } else {
         setRegisterError(data.error || 'Usuario existente');
         console.log(data.error || 'Usuario existente');
@@ -90,6 +100,8 @@ export default function PacienteRegister() {
         />
 
         {registerError && <p className="error-message">{registerError}</p>}
+        {registerSuccess && <p className="success-message">{registerSuccess}</p>}
+
         <button type="submit" className="button registrar">Guardar</button>
       </form>
     </div>
