@@ -173,11 +173,11 @@ export default function Login() {
             <select
               className="input-field"
               value={especialidadId}
-              onChange={(e) => setEspecialidadId(e.target.key)}
+              onChange={(e) => setEspecialidadId(e.target.value)}
               required
             >
               {especialidades.map((especialidadItem) => (
-                <option key={especialidadItem.id} value={especialidadItem.nombre}>
+                <option key={especialidadItem.id} value={especialidadItem.id}>
                   {especialidadItem.nombre}
                 </option>
               ))}
