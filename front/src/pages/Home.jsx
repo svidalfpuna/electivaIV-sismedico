@@ -38,10 +38,10 @@ function Home() {
     <div className="home-container">
       {/* Sidebar */}
       <div className="sidebar">
+        <p className="sidebar-dr">Dr. {decodedToken.nombre}</p>
         <button className="sidebar-btn" onClick={() => handleSidebarClick('registroPaciente')}>Registro de Paciente</button>
         <button className="sidebar-btn" onClick={() => handleSidebarClick('fichaClinica')}>Creación de Fichas Clínicas</button>
         <button className="sidebar-btn" onClick={() => handleSidebarClick('historialMedico')}>Historial Médico</button>
-        <p className="sidebar-dr">Dr. {decodedToken.nombre}</p>
         <button className="logout-btn" onClick={handleLogout}>Cerrar sesión</button>
 
 
