@@ -46,7 +46,8 @@ export default function RegisterFicha() {
 
   useEffect(() => {
     // Se autocompleta con la fecha del día
-    setFecha(new Date().toISOString().split('T')[0]);
+    const fechaActual = new Date().toISOString().split('T')[0];
+    setFecha(fechaActual);
 
     console.log("se obtienen pacientes");
     fetch("http://localhost:5000/api/pacientes/")
@@ -98,12 +99,11 @@ export default function RegisterFicha() {
       <form className="form" onSubmit={handleSubmit}>
         <h1>Registrar Ficha Clínica</h1>
 
-        {/* Fecha */}
         <input
           type="date"
           className="input-field"
           value={fecha}
-          onChange={(e) => setFecha(e.target.value)}
+          disabled  // Este atributo asegura que el usuario no pueda modificar la fecha porque pedia que sea la fecha siempre del dia
           required
         />
 
