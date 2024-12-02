@@ -33,7 +33,15 @@ export default function Login() {
       if (res.ok) {
         console.log('Medico registrado con éxito');
         console.log(data);
-        localStorage.setItem('token', JSON.stringify(data.token));
+        const now = new Date();
+        // Crea un objeto que incluye el valor y el tiempo de expiración
+        const item = {
+          value: data.token, // El valor que querés guardar
+          expiry: now.getTime() + 600000, // La fecha actual + 10min en milisegundos
+        };
+
+        // Guarda el objeto como un string en localStorage
+        localStorage.setItem('token', JSON.stringify(item));
         setTimeout(() => {
           window.location.reload();
         }, 1000);
@@ -59,7 +67,16 @@ export default function Login() {
       if (res.ok) {
         console.log('Inicio de sesión exitoso');
         console.log(data);
-        localStorage.setItem('token', JSON.stringify(data.token));
+
+        const now = new Date();
+        // Crea un objeto que incluye el valor y el tiempo de expiración
+        const item = {
+          value: data.token, // El valor que querés guardar
+          expiry: now.getTime() + 600000, // La fecha actual + 10min en milisegundos
+        };
+
+        // Guarda el objeto como un string en localStorage
+        localStorage.setItem('token', JSON.stringify(item));
         navigate('/home');
         setTimeout(() => {
           window.location.reload();

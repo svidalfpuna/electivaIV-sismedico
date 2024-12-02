@@ -9,17 +9,20 @@ function App() {
 
   // Verificar si hay un usuario guardado en localStorage al cargar la app
   useEffect(() => {
-    const isAppInitialized = localStorage.getItem('app_initialized');
-
-    if (!isAppInitialized) {
-      localStorage.clear();
-      console.log('LocalStorage limpiado al iniciar la app.');
-
-      localStorage.setItem('app_initialized', 'true');
-    }
-    const savedUser = localStorage.getItem('token');
+    const savedUser = getItemWithExpiry('token');
+    //const savedUser = localStorage.getItem('token');
     console.log(savedUser)
     if (savedUser) {
+      
+      const now = new Date();
+      // Crea un objeto que incluye el valor y el tiempo de expiración
+      const item = {
+        value: savedUser, // El valor que querés guardar
+        expiry: now.getTime() + 600000, // La fecha actual + 10min en milisegundos
+      };
+    
+      // Guarda el objeto como un string en localStorage
+      localStorage.setItem('token', JSON.stringify(item));
       setUser(savedUser); // Actualizar el estado con el usuario almacenado
     }
   }, []);
@@ -41,3 +44,25 @@ function App() {
 }
 
 export default App;
+
+
+function getItemWithExpiry(key) {
+  const itemStr = localStorage.getItem(key);
+
+  // Si no hay nada almacenado, retornar null
+  if (!itemStr) {
+    return null;
+  }
+
+  const item = JSON.parse(itemStr);
+  const now = new Date();
+
+  // Verificar si el tiempo actual supera el tiempo de expiración
+  if (now.getTime() > item.expiry) {
+    // Eliminar el item expirado del localStorage
+    localStorage.removeItem(key);
+    return null;
+  }
+
+  return item.value;
+}
