@@ -77,7 +77,6 @@ export default function Login() {
     const obtenerEspecialidades = async () => {
       console.log("se hace call a api especialidades");
       try {
-        setEspecialidades(response);
         const response = await fetch('http://localhost:5000/api/especialidades');
         const data = await response.json();
         console.log('Datos recibidos:', data);
