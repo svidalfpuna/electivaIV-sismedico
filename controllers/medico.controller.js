@@ -11,7 +11,7 @@ exports.obtenerMedicos = async (req, res) => {
             include: {
                 model: Persona,
                 as: "persona",
-                attributes: ["id", "nombre", "apellido", "cedula", "email", "telefono", "fechaNacimiento"],
+                attributes: ["nombre", "apellido", "cedula", "email", "telefono", "fechaNacimiento"],
             },
         });
         const medicos = medicosConPersona

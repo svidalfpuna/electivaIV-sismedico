@@ -14,6 +14,10 @@ function Home() {
   const handleLogout = () => {
     // Lógica para cerrar sesión
     console.log("Cerrar sesión");
+    localStorage.removeItem('token');
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   };
 
   return (
@@ -30,8 +34,8 @@ function Home() {
       {/* Main Content */}
       <div className="main-content">
         {activeContent === 'registroPaciente' && <PacienteRegister />} {/* Mostrar Registro de Paciente */}
-        {activeContent === 'fichaClinica' && <RegisterFicha/>}
-        {activeContent === 'historialMedico' && <FichasClinicasListado/>}
+        {activeContent === 'fichaClinica' && <RegisterFicha />}
+        {activeContent === 'historialMedico' && <FichasClinicasListado />}
         {!activeContent && (
           <div>
             <h1>Bienvenido</h1>

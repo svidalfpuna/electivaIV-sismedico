@@ -5,12 +5,13 @@ import './Login.css';
 
 export default function RegisterFicha() {
   const [fecha, setFecha] = useState('');
-  const [pacienteId, setPacienteId] = useState('');
+  const [pacienteId, setPacienteId] = useState(null);
   const [motivo, setMotivo] = useState('');
   const [diagnostico, setDiagnostico] = useState('');
   const [tratamiento, setTratamiento] = useState('');
   const [opciones, setOpciones] = useState([]);
   const [registerError, setRegisterError] = useState('');
+  const [registerSuccess, setRegisterSuccess] = useState('');
   const [decodedToken, setDecodedToken] = useState(null);
 
   const customStyles = {
@@ -57,7 +58,7 @@ export default function RegisterFicha() {
         }));
         setOpciones(dataPaciente);
       });
-  }, []);
+  }, [pacienteId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -77,6 +78,13 @@ export default function RegisterFicha() {
       const data = await res.json();
       if (res.ok) {
         console.log('Ficha registrada con éxito');
+        setPacienteId(null);
+        setOpciones([]);
+        setMotivo('');
+        setDiagnostico('');
+        setTratamiento('');
+        setRegisterError('');
+        setRegisterSuccess('Usuario registrado con éxito');
       } else {
         setRegisterError(data.error || 'Error al registrar ficha');
       }
@@ -102,8 +110,12 @@ export default function RegisterFicha() {
         {/* Paciente */}
         <Select
           options={opciones}
-          value={opciones.find((option) => option.value === pacienteId)}
-          onChange={(selectedOption) => setPacienteId(selectedOption?.value || '')}
+          value={pacienteId ? opciones.find((option) => option.value === pacienteId) : null}
+          onChange={(selectedOption) => {
+            setPacienteId(selectedOption?.value || null);
+            setRegisterError('');
+            setRegisterSuccess('');
+          }}
           placeholder="Selecciona un paciente"
           noOptionsMessage={() => 'No hay pacientes disponibles'}
           isSearchable
@@ -115,7 +127,11 @@ export default function RegisterFicha() {
           className="input-field"
           placeholder="Motivo de consulta"
           value={motivo}
-          onChange={(e) => setMotivo(e.target.value)}
+          onChange={(e) => {
+            setMotivo(e.target.value);
+            setRegisterError('');
+            setRegisterSuccess('');
+          }}
           required
         ></textarea>
 
@@ -124,7 +140,11 @@ export default function RegisterFicha() {
           className="input-field"
           placeholder="Diagnóstico"
           value={diagnostico}
-          onChange={(e) => setDiagnostico(e.target.value)}
+          onChange={(e) => {
+            setDiagnostico(e.target.value);
+            setRegisterError('');
+            setRegisterSuccess('');
+          }}
           required
         ></textarea>
 
@@ -133,11 +153,16 @@ export default function RegisterFicha() {
           className="input-field"
           placeholder="Tratamiento"
           value={tratamiento}
-          onChange={(e) => setTratamiento(e.target.value)}
+          onChange={(e) => {
+            setTratamiento(e.target.value);
+            setRegisterError('');
+            setRegisterSuccess('');
+          }}
           required
         ></textarea>
 
         {registerError && <p className="error-message">{registerError}</p>}
+        {registerSuccess && <p className="success-message">{registerSuccess}</p>}
 
         <button type="submit" className="button registrar">Guardar</button>
       </form>

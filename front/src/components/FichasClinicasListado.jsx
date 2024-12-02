@@ -19,7 +19,7 @@ const FichasClinicasListado = () => {
     const fetchEspecialidades = async () => {
       try {
         console.log('llamada a api para listar especialidades');
-        const res = await fetch('http://localhost:5000/api/espacialidades/');
+        const res = await fetch('http://localhost:5000/api/especialidades/');
         const data = await res.json();
         if (res.ok) {
           console.log(data);
@@ -42,8 +42,8 @@ const FichasClinicasListado = () => {
         const res = await fetch('http://localhost:5000/api/medicos/');
         const data = await res.json();
         if (res.ok) {
-            console.log(data);
-            setMedicos(data);
+          console.log(data);
+          setMedicos(data);
         } else {
           setError(data.error || 'Error al cargar médicos');
         }
@@ -62,8 +62,8 @@ const FichasClinicasListado = () => {
         const res = await fetch('http://localhost:5000/api/pacientes/');
         const data = await res.json();
         if (res.ok) {
-            console.log(data);
-            setPacientes(data);
+          console.log(data);
+          setPacientes(data);
         } else {
           setError(data.error || 'Error al cargar pacientes');
         }
@@ -77,7 +77,10 @@ const FichasClinicasListado = () => {
   // Obtener fichas clínicas con filtros
   const fetchFichas = async () => {
     try {
-      const queryParams = new URLSearchParams(filters).toString();
+      const filteredParams = Object.entries(filters)
+        .filter(([key, value]) => value !== '') // Elimina entradas con valores vacíos
+        .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
+      const queryParams = new URLSearchParams(filteredParams).toString();
       console.log('llamada a api para obtener fichas clinicas');
       const res = await fetch(`http://localhost:5000/api/fichasClinicas/?${queryParams}`);
       const data = await res.json();
@@ -101,10 +104,10 @@ const FichasClinicasListado = () => {
   // Llamar a fetchFichas al cambiar filtros
   useEffect(() => {
     fetchFichas();
-  }, [filters]);
+  }, [filters.especialidadId, filters.fecha, filters.medicoId, filters.pacienteId]);
 
   return (
-    
+
     <div className="form-container-ficha">
       <h1>Listado de Consultas</h1>
       {error && <p style={{ color: 'red' }}>{error}</p>}
@@ -166,12 +169,12 @@ const FichasClinicasListado = () => {
         <tbody>
           {fichas.map((ficha) => (
             <tr key={ficha.id}>
-              <td>{ficha.fecha}</td>
-              <td>{ficha.paciente.persona.nombre} {ficha.paciente.persona.apellido}</td>
-              <td>{ficha.medico.persona.nombre} {ficha.medico.persona.apellido}</td>
-              <td>{ficha.motivo}</td>
-              <td>{ficha.diagnostico}</td>
-              <td>{ficha.tratamiento}</td>
+              <td>{ficha.fecha || "Fecha no disponible"}</td>
+              <td>{ficha.paciente || "Paciente no asignado"}</td>
+              <td>{ficha.medico || "Médico no asignado"}</td>
+              <td>{ficha.motivo || "Motivo no registrado"}</td>
+              <td>{ficha.diagnostico || "Diagnóstico no registrado"}</td>
+              <td>{ficha.tratamiento || "Tratamiento no registrado"}</td>
             </tr>
           ))}
         </tbody>
