@@ -7,7 +7,7 @@ import { jwtDecode } from "jwt-decode";
 
 function Home() {
   const [activeContent, setActiveContent] = useState(''); // Estado para manejar el contenido activo
-  const [decodedToken, setDecodedToken] = useState(null);
+  const [decodedToken, setDecodedToken] = useState({ id: 0, nombre: " " });
 
   const handleSidebarClick = (content) => {
     setActiveContent(content); // Cambia el contenido que se muestra según el clic en el sidebar
@@ -21,7 +21,7 @@ function Home() {
       window.location.reload();
     }, 1000);
   };
-  
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -43,7 +43,7 @@ function Home() {
         <button className="sidebar-btn" onClick={() => handleSidebarClick('historialMedico')}>Historial Médico</button>
         <p className="sidebar-dr">Dr. {decodedToken.nombre}</p>
         <button className="logout-btn" onClick={handleLogout}>Cerrar sesión</button>
-        
+
 
       </div>
 
