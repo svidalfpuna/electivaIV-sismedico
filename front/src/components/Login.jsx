@@ -31,7 +31,7 @@ export default function Login() {
       });
       const data = await res.json();
       if (res.ok) {
-        console.log('Usuario registrado con éxito');
+        console.log('Medico registrado con éxito');
         console.log(data);
         localStorage.setItem('token', JSON.stringify(data.token));
         setTimeout(() => {

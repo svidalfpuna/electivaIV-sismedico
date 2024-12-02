@@ -24,8 +24,8 @@ export default function PacienteRegister() {
       });
       const data = await res.json();
       if (res.ok) {
-        setRegisterSuccess('Usuario registrado con éxito'); // Establecer mensaje de éxito
-        console.log('Usuario registrado con éxito');
+        setRegisterSuccess('Paciente registrado con éxito'); // Establecer mensaje de éxito
+        console.log('Paciente registrado con éxito');
         setNombre('');
         setApellido('');
         setCedula('');
