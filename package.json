@@ -17,6 +17,7 @@
     "express": "^4.21.1",
     "express-validator": "^7.2.0",
     "jsonwebtoken": "^9.0.2",
+    "jwt-decode": "^4.0.0",
     "pg": "^8.13.1",
     "pg-hstore": "^2.3.4",
     "react-modal": "^3.16.1",
