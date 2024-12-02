@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Home.css";
 import RegisterFicha from "../components/fichaClinica";
 import PacienteRegister from "../components/PacienteRegister";
 import FichasClinicasListado from "../components/FichasClinicasListado";
+import { jwtDecode } from "jwt-decode";
 
 function Home() {
   const [activeContent, setActiveContent] = useState(''); // Estado para manejar el contenido activo
+  const [decodedToken, setDecodedToken] = useState(null);
 
   const handleSidebarClick = (content) => {
     setActiveContent(content); // Cambia el contenido que se muestra según el clic en el sidebar
@@ -19,6 +21,18 @@ function Home() {
       window.location.reload();
     }, 1000);
   };
+  
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const decoded = jwtDecode(token); // decodificar el token
+        setDecodedToken(decoded);
+      } catch (error) {
+        console.error('Error al decodificar el token:', error);
+      }
+    }
+  }, []);
 
   return (
     <div className="home-container">
@@ -27,7 +41,9 @@ function Home() {
         <button className="sidebar-btn" onClick={() => handleSidebarClick('registroPaciente')}>Registro de Paciente</button>
         <button className="sidebar-btn" onClick={() => handleSidebarClick('fichaClinica')}>Creación de Fichas Clínicas</button>
         <button className="sidebar-btn" onClick={() => handleSidebarClick('historialMedico')}>Historial Médico</button>
+        <p className="sidebar-dr">Dr. {decodedToken.nombre}</p>
         <button className="logout-btn" onClick={handleLogout}>Cerrar sesión</button>
+        
 
       </div>
 

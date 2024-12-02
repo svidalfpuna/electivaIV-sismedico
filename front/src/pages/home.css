@@ -1,84 +1,139 @@
 /* Contenedor principal */
 @import url("https://fonts.googleapis.com/css2?family=Poppin347bc822s:ital,wght@1,300&display=swap");
 
-html, body, #root {
-    margin: 0;
-    padding: 0;
-    height: 100%; /* Asegura que la altura de la página ocupe todo el espacio de la ventana */
-  }
-  
-  .home-container {
-    display: flex;
-    height: 100vh; /* Asegura que el contenedor ocupe el 100% de la altura de la ventana */
-  }
-  
-  /* Sidebar */
-  .sidebar {
-    font-family: "Poppins", sans-serif;
-    width: 35%;
-    background-color: rgb(119, 165, 233);
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    box-sizing: border-box;
-  }
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  /* Asegura que la altura de la página ocupe todo el espacio de la ventana */
+}
 
-  
-  /* Botones del sidebar */
+.home-container {
+  display: flex;
+  height: 100vh;
+  /* Asegura que el contenedor ocupe el 100% de la altura de la ventana */
+}
+
+/* Sidebar */
+.sidebar {
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  background-color: rgb(119, 165, 233);
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+
+.sidebar a {
+  display: block;
+  color: white;
+  padding: 16px;
+  text-decoration: none;
+}
+
+.sidebar a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+.sidebar a:hover:not(.active) {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #f5f5f5;
+}
+
+/* Botones del sidebar */
 .sidebar-btn {
-    background: none;
-    border: none;
-    color: white;
-    text-align: left;
-    font-size: 14px;
-    font-weight: bold;
-    margin-bottom: 15px;
-    cursor: pointer;
-    padding: 10px; /* Agregamos un poco de padding para mejorar la usabilidad */
-    border-radius: 5px; /* Bordes redondeados para un diseño más agradable */
-    transition: background-color 0.3s ease; /* Transición suave */
-    font-family: "Poppins", sans-serif;
+  background: none;
+  border: none;
+  color: white;
+  text-align: left;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  font-family: "Poppins", sans-serif;
+}
 
-  }
-  
-  .sidebar-btn:hover {
-    background-color: rgba(255, 255, 255, 0.2); /* Fondo claro al hacer hover */
-    color: #f5f5f5; /* Cambia ligeramente el color del texto */
+.sidebar-dr {
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 10px;
+}
+
+.sidebar-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  /* Fondo claro al hacer hover */
+  color: #f5f5f5;
+  /* Cambia ligeramente el color del texto */
+}
+
+
+/* Contenido principal */
+.main-content {
+  flex: 1;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  margin-left: 200px;
+  padding: 1px 16px;
+  height: 1000px;
+
+
+}
+
+.main-content h1 {
+  margin-bottom: 20px;
+  font-family: "Poppins", sans-serif;
+
+}
+
+.main-content p {
+  font-size: 16px;
+  color: #333;
+  font-family: "Poppins", sans-serif;
+
+}
+
+.logout-btn {
+  margin-top: auto;
+  padding: 10px 20px;
+  margin-left: 10%;
+  border: none;
+  color: black;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.logout-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  /* Fondo claro al hacer hover */
+}
+
+@media screen and (max-width: 700px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
   }
 
-  
-  /* Contenido principal */
-  .main-content {
-    flex: 1;
-    padding: 35px;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
+  .sidebar a {
+    float: left;
+  }
 
-    
+  div.content {
+    margin-left: 0;
   }
-  
-  .main-content h1 {
-    margin-bottom: 20px;
-    font-family: "Poppins", sans-serif;
+}
 
+@media screen and (max-width: 400px) {
+  .sidebar a {
+    text-align: center;
+    float: none;
   }
-  
-  .main-content p {
-    font-size: 16px;
-    color: #333;
-    font-family: "Poppins", sans-serif;
-
-  }
-  
-  .logout-btn {
-    margin-top: auto; 
-    padding: 10px 20px;
-    border: none; 
-    background-color: transparent; 
-    color: black;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  .logout-btn:hover {
-    background-color: rgba(255, 255, 255, 0.2); /* Fondo claro al hacer hover */
-  }
+}

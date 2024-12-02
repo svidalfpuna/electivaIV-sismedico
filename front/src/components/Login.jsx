@@ -38,8 +38,8 @@ export default function Login() {
           window.location.reload();
         }, 1000);
       } else {
-        console.log(data.error || 'Se tuvo error al llamar a la api');
-        setRegisterError(data.error || 'Usuario existente');
+        console.log(data.message || 'Se tuvo error al llamar a la api');
+        setRegisterError(data.message || 'Usuario existente');
       }
     } catch (error) {
       setRegisterError('Error en la solicitud de registro');

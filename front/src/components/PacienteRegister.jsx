@@ -11,7 +11,7 @@ export default function PacienteRegister() {
   const [registerError, setRegisterError] = useState('');
   const [registerSuccess, setRegisterSuccess] = useState(''); 
 
-  const handleSignUp = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     setRegisterError(''); // Limpiar mensajes previos
     setRegisterSuccess('');
@@ -44,7 +44,7 @@ export default function PacienteRegister() {
 
   return (
     <div className="form-container-register-paciente">
-      <form className="form" onSubmit={handleSignUp}>
+      <form className="form" onSubmit={handleRegister}>
         <h1>Registro de Paciente</h1>
         
         <input

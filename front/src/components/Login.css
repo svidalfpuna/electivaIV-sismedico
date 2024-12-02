@@ -180,11 +180,13 @@ textarea {
 }
 
 .form-container-register-paciente input {
+    display: flex;
+    flex-direction: column; 
     background: rgb(196 220 255);
     border: none;
     padding: 4px 15px;
     margin: 8px 0;
-    width: 100%;
+    width: 600px;
     border-radius: 10px;
     color: rgba(0, 0, 0, 0.473);
 }
