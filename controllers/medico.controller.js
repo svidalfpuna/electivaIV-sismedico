@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { Op } = require('sequelize');
 const db = require("../models");
 const Medico = db.medicos;
 const Persona = db.personas;
@@ -75,6 +76,7 @@ exports.crearMedico = async (req, res) => {
         let persona = await Persona.findOne({
             where
         });
+
         const user = await Medico.findOne({
             where: {
                 username: username,

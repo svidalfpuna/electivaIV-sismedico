@@ -84,7 +84,7 @@ export default function RegisterFicha() {
         setDiagnostico('');
         setTratamiento('');
         setRegisterError('');
-        setRegisterSuccess('Usuario registrado con éxito');
+        setRegisterSuccess('Ficha registrada con éxito');
       } else {
         setRegisterError(data.error || 'Error al registrar ficha');
       }

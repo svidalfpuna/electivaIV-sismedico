@@ -50,7 +50,6 @@ exports.obtenerFichas = async (req, res) => {
             ],
         });
         
-        console.log(fichas);
         const formateoFichas = fichas.map(ficha => ({
             id: ficha.id,
             fecha: ficha.fecha,
@@ -65,7 +64,6 @@ exports.obtenerFichas = async (req, res) => {
             diagnostico: ficha.diagnostico,
             tratamiento: ficha.tratamiento,
         }));
-        console.log(formateoFichas);
         res.json(formateoFichas);
     } catch (error) {
         res.status(500).json({ error: error.message || 'Error al obtener fichas clínicas.' });
