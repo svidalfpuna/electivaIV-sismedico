@@ -22,7 +22,7 @@ app.get("/", (req, res) => {
 
 async function poblarEspecialidades() {
     const especialidades = ['Pediatra', 'Dermatologo', 'Clinico', 'Alergologo', 'Cardiologo',
-        'Dermatologo', 'Endocrinologo', 'Geriatra', 'Ginecologo', 'Neurologo', 'Oncologo',
+        'Endocrinologo', 'Geriatra', 'Ginecologo', 'Neurologo', 'Oncologo',
         'Oftalmologo', 'Ortopedista', 'Otorrinolaringologo', 'Psiquiatra',
         'Reumatologo', 'Urologo', 'Cirujano General', 'Neurocirujano'];
 

@@ -125,7 +125,7 @@ export default function RegisterFicha() {
         {/* Motivo de consulta */}
         <textarea
           className="input-field"
-          placeholder="Motivo de consulta"
+          placeholder="Motivo(s) de consulta"
           value={motivo}
           onChange={(e) => {
             setMotivo(e.target.value);
