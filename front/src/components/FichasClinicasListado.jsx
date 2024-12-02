@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 import './ficha.css';
 
 const FichasClinicasListado = () => {
@@ -169,8 +169,7 @@ const FichasClinicasListado = () => {
         </thead>
         <tbody>
           {fichas.map((ficha) => (
-            <tr key={ficha.id}>
-              <td>{format(new Date(ficha.fecha), 'dd/MM/yyyy') || "Fecha no disponible"}</td>
+            <tr key={ficha.id}><td>{ficha.fecha ? format(parseISO(ficha.fecha), 'dd/MM/yyyy') : "Fecha no disponible"}</td>
               <td>{ficha.paciente || "Paciente no asignado"}</td>
               <td>{ficha.medico || "Médico no asignado"}</td>
               <td>{ficha.motivo || "Motivo no registrado"}</td>
