@@ -22,6 +22,7 @@ db.fichas = require("./ficha.model.js")(sequelize, Sequelize);
 db.personas = require("./persona.model.js")(sequelize, Sequelize);
 db.medicos = require("./medico.model.js")(sequelize, Sequelize);
 db.pacientes = require("./paciente.model.js")(sequelize, Sequelize);
+db.especialidades = require("./espacialidad.model.js")(sequelize, Sequelize);
 
 db.medicos.associate(db);
 db.pacientes.associate(db);

@@ -14,13 +14,14 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [telefono, setTelefono] = useState('');
   const [fechaNacimiento, setFechaNacimiento] = useState('');
+  const [especialidades, setEspecialidades] = useState([]);
   const [especialidad, setEspecialidad] = useState('');
   const [registerError, setRegisterError] = useState('');
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
       const body = JSON.stringify({ nombre, apellido, cedula, email, telefono, fechaNacimiento, especialidad, username: usernameRegister, password: passwordRegister });
-      console.log("Llamada a api para registrar medico: ",body);
+      console.log("Llamada a api para registrar medico: ", body);
       const res = await fetch('http://localhost:5000/api/medicos', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -59,6 +60,31 @@ export default function Login() {
       setLoginError('Error en la solicitud de inicio de sesión');
     }
   };
+
+  useEffect(() => {
+    // Obtener las especialidades desde la API
+    const obtenerEspecialidades = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/especialidades');
+        console.log(response);
+        setEspecialidades(response);
+      } catch (error) {
+        console.error('Error al obtener las especialidades', error);
+      }
+    };
+
+    obtenerEspecialidades();
+
+    fetch("http://localhost:5000/api/pacientes/")
+      .then((res) => res.json())
+      .then((data) => {
+        const dataPaciente = data.map((paciente) => ({
+          label: paciente.nombre + " " + paciente.apellido,
+          value: paciente.id
+        }));
+        setOpciones(dataPaciente);
+      });
+  }, []);
 
   return (
     <div className='login-base'>
@@ -147,9 +173,11 @@ export default function Login() {
               required
             >
               <option value="">Selecciona Especialidad</option>
-              <option value="Pediatra">Pediatra</option>
-              <option value="Dermatologo">Dermatólogo</option>
-              <option value="Clinico">Clínico</option>
+              {especialidades.map((especialidadItem) => (
+                <option key={especialidadItem.id} value={especialidadItem.nombre}>
+                  {especialidadItem.nombre}
+                </option>
+              ))}
             </select>
             <input
               type="text"

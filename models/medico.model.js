@@ -7,10 +7,11 @@ module.exports = (sequelize, Sequelize) => {
                 key: 'id',
             },
         },
-        especialidad: {
-            type: Sequelize.STRING,
-            validate: {
-                isIn: [['Pediatra', 'Dermatologo', 'Clinico']],
+        especialidadId: {
+            type: Sequelize.INTEGER,
+            references: {
+                model: 'especialidades',
+                key: 'id',
             },
         },
         username: {
@@ -24,6 +25,7 @@ module.exports = (sequelize, Sequelize) => {
 
     Medico.associate = (models) => {
         Medico.belongsTo(models.personas, { foreignKey: 'personaId', as: 'persona' });
+        Medico.belongsTo(models.especialidades, { foreignKey: 'especialidadId', as: 'especialidad' });
     };
 
     return Medico;

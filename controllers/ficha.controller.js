@@ -27,8 +27,11 @@ exports.crearFicha = async (req, res) => {
         const paciente = await Paciente.findByPk(pacienteId);
         const medico = await Medico.findByPk(medicoId);
 
-        if (!paciente || !medico) {
-            return res.status(404).json({ error: 'Paciente o Médico no encontrado.' });
+        if (!medico) {
+            return res.status(404).json({ error: 'Medico no encontrado.' });
+        }
+        if (!paciente) {
+            return res.status(404).json({ error: 'Paciente no encontrado.' });
         }
 
         const ficha = await FichaClinica.create({ fecha, pacienteId, medicoId, motivo, diagnostico, tratamiento });

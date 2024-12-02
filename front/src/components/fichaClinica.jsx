@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Select from 'react-select';
 import './Login.css';
 
 export default function RegisterFicha() {
@@ -7,25 +8,48 @@ export default function RegisterFicha() {
   const [motivoConsulta, setMotivoConsulta] = useState('');
   const [diagnostico, setDiagnostico] = useState('');
   const [tratamiento, setTratamiento] = useState('');
-  const [pacientes, setPacientes] = useState([]);
+  const [opciones, setOpciones] = useState([]);
   const [registerError, setRegisterError] = useState('');
 
+  const customStyles = {
+    control: (base) => ({
+      ...base,
+      backgroundColor: '#C4DCFF',
+      border: 'none',
+      padding: '2px',
+      margin: '8px 0',
+    }),
+    option: (base, state) => ({
+      ...base,
+      backgroundColor: state.isFocused
+        ? '#228be6'
+        : '#C4DCFF',
+      color: state.isFocused ? 'black' : 'white',
+    }),
+    singleValue: (base) => ({
+      ...base,
+      color: '#6B788B',
+    }),
+  };
   useEffect(() => {
     // Se autocompleta con la fecha del día
     setFecha(new Date().toISOString().split('T')[0]);
-    
-    // Simulación de obtener pacientes (esto debería venir de la API)
-    setPacientes([
-      { id: 1, nombre: 'Juan Pérez' },
-      { id: 2, nombre: 'Ana Gómez' },
-      { id: 3, nombre: 'Carlos Ruiz' },
-    ]);
+
+    fetch("http://localhost:5000/api/pacientes/")
+      .then((res) => res.json())
+      .then((data) => {
+        const dataPaciente = data.map((paciente) => ({
+          label: paciente.nombre + " " + paciente.apellido,
+          value: paciente.id
+        }));
+        setOpciones(dataPaciente);
+      });
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:8000/api/ficha/', {
+      const res = await fetch('http://localhost:5000/api/fichasClinicas/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -48,65 +72,61 @@ export default function RegisterFicha() {
   };
 
   return (
-      <div className="form-container-register-paciente">
-        <form className="form" onSubmit={handleSubmit}>
-          <h1>Registrar Ficha Clínica</h1>
-          
-          {/* Fecha */}
-          <input
-            type="date"
-            className="input-field"
-            value={fecha}
-            onChange={(e) => setFecha(e.target.value)}
-            required
-          />
+    <div className="form-container-register-paciente">
+      <form className="form" onSubmit={handleSubmit}>
+        <h1>Registrar Ficha Clínica</h1>
 
-          {/* Búsqueda de paciente */}
-          <select
-            className="input-field"
-            value={paciente}
-            onChange={(e) => setPaciente(e.target.value)}
-            required
-          >
-            <option value="">Selecciona un paciente</option>
-            {pacientes.map((pac) => (
-              <option key={pac.id} value={pac.id}>
-                {pac.nombre}
-              </option>
-            ))}
-          </select>
+        {/* Fecha */}
+        <input
+          type="date"
+          className="input-field"
+          value={fecha}
+          onChange={(e) => setFecha(e.target.value)}
+          required
+        />
 
-          {/* Motivo de consulta */}
-          <textarea
-            className="input-field"
-            placeholder="Motivo de consulta"
-            value={motivoConsulta}
-            onChange={(e) => setMotivoConsulta(e.target.value)}
-            required
-          ></textarea>
+        {/* Paciente */}
+        <Select
+          options={opciones}
+          value={opciones.find((option) => option.value === paciente)}
+          onChange={(selectedOption) => setPaciente(selectedOption?.value || '')}
+          placeholder="Selecciona un paciente"
+          noOptionsMessage={() => 'No hay pacientes disponibles'}
+          isSearchable
+          styles={customStyles}
+        />
 
-          {/* Diagnóstico */}
-          <textarea
-            className="input-field"
-            placeholder="Diagnóstico"
-            value={diagnostico}
-            onChange={(e) => setDiagnostico(e.target.value)}
-            required
-          ></textarea>
+        {/* Motivo de consulta */}
+        <textarea
+          className="input-field"
+          placeholder="Motivo de consulta"
+          value={motivoConsulta}
+          onChange={(e) => setMotivoConsulta(e.target.value)}
+          required
+        ></textarea>
 
-          {/* Tratamiento */}
-          <textarea
-            className="input-field"
-            placeholder="Tratamiento"
-            value={tratamiento}
-            onChange={(e) => setTratamiento(e.target.value)}
-            required
-          ></textarea>
+        {/* Diagnóstico */}
+        <textarea
+          className="input-field"
+          placeholder="Diagnóstico"
+          value={diagnostico}
+          onChange={(e) => setDiagnostico(e.target.value)}
+          required
+        ></textarea>
 
-          {registerError && <p className="error-message">{registerError}</p>}
+        {/* Tratamiento */}
+        <textarea
+          className="input-field"
+          placeholder="Tratamiento"
+          value={tratamiento}
+          onChange={(e) => setTratamiento(e.target.value)}
+          required
+        ></textarea>
 
-          <button type="submit" className="button registrar">Guardar</button>
-        </form>
-      </div>
+        {registerError && <p className="error-message">{registerError}</p>}
+
+        <button type="submit" className="button registrar">Guardar</button>
+      </form>
+    </div>
   );
 }

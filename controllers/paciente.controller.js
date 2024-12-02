@@ -8,7 +8,7 @@ exports.obtenerPacientes = async (req, res) => {
             include: {
                 model: Persona,
                 as: "persona",
-                attributes: ["id", "nombre", "apellido", "cedula", "email", "telefono", "fechaNacimiento"],
+                attributes: ["nombre", "apellido", "cedula", "email", "telefono", "fechaNacimiento"],
             },
         });
         const pacientes = pacientesConPersona.map((paciente) => (
@@ -29,8 +29,9 @@ exports.crearPaciente = async (req, res) => {
         const persona = await Persona.create({ nombre, apellido, cedula, email, telefono, fechaNacimiento });
         const paciente = await Paciente.create({ personaId: persona.id });
 
+        console.log(paciente)
         res.status(201).json({
-            id: paciente.id,
+            id: paciente.dataValues.id,
             ...persona.dataValues,
         });
     } catch (error) {
@@ -53,7 +54,7 @@ exports.actualizarPaciente = async (req, res) => {
 
         await persona.update(req.body);
         res.json({
-            id: paciente.id,
+            id: id,
             ...persona.dataValues,
         });
     } catch (error) {
