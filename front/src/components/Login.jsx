@@ -65,7 +65,7 @@ export default function Login() {
     // Obtener las especialidades desde la API
     const obtenerEspecialidades = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/especialidades');
+        const response = await fetch('http://localhost:5000/api/espacialidades');
         console.log(response);
         setEspecialidades(response);
       } catch (error) {

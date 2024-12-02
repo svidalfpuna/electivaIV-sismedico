@@ -15,9 +15,6 @@ export default function RegisterFicha() {
     control: (base) => ({
       ...base,
       backgroundColor: '#C4DCFF',
-      border: 'none',
-      padding: '2px',
-      margin: '8px 0',
     }),
     option: (base, state) => ({
       ...base,

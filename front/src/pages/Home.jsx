@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Home.css";
 import RegisterFicha from "../components/fichaClinica";
 import PacienteRegister from "../components/PacienteRegister";
+import FichasClinicasListado from "../components/FichasClinicasListado";
 
 function Home() {
   const [activeContent, setActiveContent] = useState(''); // Estado para manejar el contenido activo
@@ -17,15 +18,13 @@ function Home() {
         <button className="sidebar-btn" onClick={() => handleSidebarClick('registroPaciente')}>Registro de Paciente</button>
         <button className="sidebar-btn" onClick={() => handleSidebarClick('fichaClinica')}>Creación de Fichas Clínicas</button>
         <button className="sidebar-btn" onClick={() => handleSidebarClick('historialMedico')}>Historial Médico</button>
-        <button className="sidebar-btn" onClick={() => handleSidebarClick('agendaConsultas')}>Agenda de Consultas</button>
       </div>
 
       {/* Main Content */}
       <div className="main-content">
         {activeContent === 'registroPaciente' && <PacienteRegister />} {/* Mostrar Registro de Paciente */}
         {activeContent === 'fichaClinica' && <RegisterFicha/>}
-        {activeContent === 'historialMedico' && <h1>Historial Médico</h1>}
-        {activeContent === 'agendaConsultas' && <h1>Agenda de Consultas</h1>}
+        {activeContent === 'historialMedico' && <FichasClinicasListado/>}
         {!activeContent && (
           <div>
             <h1>Bienvenido</h1>

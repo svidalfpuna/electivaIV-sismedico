@@ -1,0 +1,48 @@
+.form-container-ficha {
+    padding: 10px;
+    
+  }
+  
+  .form-container-ficha h1 {
+    text-align: center !important;
+    font-size: 32px; /* Ajusta el tamaño según lo necesites */
+}
+  
+.form-container-ficha div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  label {
+    display: flex;
+    flex-direction: column;
+    width: 200px; /* Ajusta el tamaño según lo que necesites */
+  }
+  
+  select, input[type="date"] {
+    margin-top: -1px;
+    padding: 5px;
+    width: 100%;
+    border-radius: 10px;
+  }
+  
+  input[type="date"] {
+    align-items: center !important;
+  }
+  table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+  }
+  
+  table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  table th {
+    background-color: #f2f2f2;
+  }
+  

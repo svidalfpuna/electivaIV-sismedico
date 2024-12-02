@@ -380,7 +380,6 @@ button.ghost {
 .form-container-register-paciente h1 {
     text-align: center;
     font-size: 32px; /* Ajusta el tamaño según lo necesites */
-
 }
 
 .modal {
@@ -452,5 +451,4 @@ button.ghost {
     margin-top: 10px;
     text-align: center;
     font-weight: bold;
-
   }
