@@ -14,7 +14,6 @@ function App() {
     if (savedUser) {
       setUser(savedUser); // Actualizar el estado con el usuario almacenado
     }
-    console.log(user)
   }, []);
 
   useEffect(() => {
