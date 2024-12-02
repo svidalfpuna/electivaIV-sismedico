@@ -11,6 +11,11 @@ function Home() {
     setActiveContent(content); // Cambia el contenido que se muestra según el clic en el sidebar
   };
 
+  const handleLogout = () => {
+    // Lógica para cerrar sesión
+    console.log("Cerrar sesión");
+  };
+
   return (
     <div className="home-container">
       {/* Sidebar */}
@@ -18,6 +23,8 @@ function Home() {
         <button className="sidebar-btn" onClick={() => handleSidebarClick('registroPaciente')}>Registro de Paciente</button>
         <button className="sidebar-btn" onClick={() => handleSidebarClick('fichaClinica')}>Creación de Fichas Clínicas</button>
         <button className="sidebar-btn" onClick={() => handleSidebarClick('historialMedico')}>Historial Médico</button>
+        <button className="logout-btn" onClick={handleLogout}>Cerrar sesión</button>
+
       </div>
 
       {/* Main Content */}

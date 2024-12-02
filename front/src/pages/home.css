@@ -70,3 +70,15 @@ html, body, #root {
 
   }
   
+  .logout-btn {
+    margin-top: auto; 
+    padding: 10px 20px;
+    border: none; 
+    background-color: transparent; 
+    color: black;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  .logout-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Fondo claro al hacer hover */
+  }
