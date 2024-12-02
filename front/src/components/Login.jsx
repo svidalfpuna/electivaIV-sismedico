@@ -16,7 +16,7 @@ export default function Login() {
   const [telefono, setTelefono] = useState('');
   const [fechaNacimiento, setFechaNacimiento] = useState('');
   const [especialidades, setEspecialidades] = useState([]);
-  const [especialidadId, setEspecialidadId] = useState('');
+  const [especialidadId, setEspecialidadId] = useState(0);
   const [registerError, setRegisterError] = useState('');
   const navigate = useNavigate();
   const handleSignUp = async (e) => {
@@ -81,6 +81,7 @@ export default function Login() {
         const data = await response.json();
         console.log('Datos recibidos:', data);
         setEspecialidades(data);
+        setEspecialidadId(data?.at(0).id);
       } catch (error) {
         console.error('Error al obtener las especialidades', error);
       }
