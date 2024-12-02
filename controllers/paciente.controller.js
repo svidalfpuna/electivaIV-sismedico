@@ -1,4 +1,5 @@
 const db = require("../models");
+const { Op } = require('sequelize');
 const Paciente = db.pacientes;
 const Persona = db.personas;
 
@@ -26,6 +27,29 @@ exports.obtenerPacientes = async (req, res) => {
 exports.crearPaciente = async (req, res) => {
     try {
         const { nombre, apellido, cedula, email, telefono, fechaNacimiento } = req.body;
+        const where = {};
+
+        const conditions = [];
+
+        if (cedula) conditions.push({ cedula: cedula });
+        if (email) conditions.push({ email: email });
+
+        if (conditions.length > 0) {
+            where[Op.or] = conditions;
+        }
+
+        const pacient = await Persona.findOne({
+            where
+        });
+
+        if (pacient) {
+            if (pacient.cedula) {
+                return res.status(409).json({ message: 'cedula ya existente' });
+            } else {
+                return res.status(409).json({ message: 'email ya existente' });
+            }
+        }
+
         const persona = await Persona.create({ nombre, apellido, cedula, email, telefono, fechaNacimiento });
         const paciente = await Paciente.create({ personaId: persona.id });
 
